@@ -1,0 +1,63 @@
+name: Build and Test Akaunting
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install lsb-release ca-certificates apt-transport-https software-properties-common -y
+          sudo add-apt-repository ppa:ondrej/php -y
+          sudo apt update
+          sudo apt install php8.2 -y
+          sudo apt install php8.2-{bcmath,xml,fpm,mysql,zip,intl,ldap,gd,cli,bz2,curl,mbstring,pgsql,opcache,soap,cgi} -y
+          sudo apt install mariadb-server mariadb-client -y
+          sudo apt install nginx -y
+
+      - name: Create database
+        run: |
+          sudo mysql -u root -p -e "CREATE DATABASE akaunting;"
+          sudo mysql -u root -p -e "GRANT ALL PRIVILEGES ON akaunting.* TO 'akaunting'@'localhost' IDENTIFIED BY 'StrongPassword';"
+          sudo mysql -u root -p -e "FLUSH PRIVILEGES;"
+
+      - name: Start Nginx and PHP-FPM
+        run: |
+          sudo systemctl start nginx
+          sudo systemctl start php8.2-fpm.service
+
+      - name: Configure Nginx
+        run: |
+          # Modify the Nginx configuration file (/etc/nginx/sites-available/default) here
+
+      - name: Restart Nginx
+        run: sudo systemctl restart nginx
+
+      # Add the following steps for running tests
+
+      - name: Install Composer
+        run: |
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php
+          php -r "unlink('composer-setup.php');"
+          sudo mv composer.phar /usr/local/bin/composer
+
+      - name: Install project dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Run tests
+        run: php artisan test
