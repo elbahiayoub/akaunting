@@ -46,3 +46,17 @@ jobs:
 
       - name: Restart Nginx
         run: sudo systemctl restart nginx
+
+
+      - name: Install Composer
+        run: |
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php
+          php -r "unlink('composer-setup.php');"
+          sudo mv composer.phar /usr/local/bin/composer
+
+      - name: Install project dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Run tests
+        run: php artisan test
