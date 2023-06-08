@@ -77,4 +77,11 @@ jobs:
             echo "Website is not working. Response code: $RESPONSE_CODE"
             exit 1
           fi
+          
+      - name: Publish artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: website-html
+          path: website.html
+
 
