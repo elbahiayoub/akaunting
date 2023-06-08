@@ -1,0 +1,23 @@
+name: Test
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check /var/www/ directory
+        run: |
+          ls -la /var/www/
+      
+      - name: Check /var/www/html/ directory
+        run: |
+          ls -la /var/www/html/
+      
+      - name: Check /etc/nginx/conf.d/ directory
+        run: |
+          ls -la /etc/nginx/conf.d/
