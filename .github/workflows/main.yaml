@@ -50,7 +50,7 @@ jobs:
       - name: Configure Nginx
         run: |
           # Modify the Nginx configuration file (/etc/nginx/sites-available/default) here
-          sudo rm -f /etc/nginx/sites/available/default
+          # sudo rm -f /etc/nginx/sites/available/default
 
       - name: Restart Nginx
         run: sudo systemctl restart nginx
