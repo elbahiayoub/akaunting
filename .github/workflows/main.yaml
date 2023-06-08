@@ -40,6 +40,11 @@ jobs:
           sudo systemctl start nginx
           sudo systemctl start php8.2-fpm.service
 
+      - name: Move configuration file
+        run: |
+          sudo cp akaunting.conf /etc/nginx/conf.d/
+          sudo nginx -t
+
       - name: Configure Nginx
         run: |
           # Modify the Nginx configuration file (/etc/nginx/sites-available/default) here
@@ -47,10 +52,6 @@ jobs:
       - name: Restart Nginx
         run: sudo systemctl restart nginx
         
-      - name: Move configuration file
-        run: |
-          sudo cp akaunting.conf /etc/nginx/conf.d/
-          sudo nginx -t
         
 
 
