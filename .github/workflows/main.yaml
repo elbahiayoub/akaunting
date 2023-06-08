@@ -70,6 +70,12 @@ jobs:
       - name: Install project dependencies
         run: composer install --prefer-dist --no-interaction
         
+      - name: Print working directory
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Contents of directory:"
+          ls -al
+        
       - name: Test website
         run: |
           RESPONSE=$(curl -s http://localhost)
