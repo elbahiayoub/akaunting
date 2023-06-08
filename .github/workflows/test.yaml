@@ -12,12 +12,17 @@ jobs:
 
       - name: Check /var/www/ directory
         run: |
+          pwd
+          cd /var/www/pwd
+          pwd
           ls -la /var/www/
       
       - name: Check /var/www/html/ directory
         run: |
+          pwd
           ls -la /var/www/html/
-      
       - name: Check /etc/nginx/conf.d/ directory
         run: |
           ls -la /etc/nginx/conf.d/
+          pwd
+          ls -la /etc/nginx/sites-enabled/
