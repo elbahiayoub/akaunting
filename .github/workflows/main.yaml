@@ -30,6 +30,7 @@ jobs:
           php -v
           sudo apt install mariadb-server mariadb-client -y
           sudo apt install nginx -y
+          sudo apt remove apache -y
 
       - name: Create database
         run: |
@@ -39,8 +40,8 @@ jobs:
 
       - name: Start Nginx and PHP-FPM
         run: |
-          sudo systemctl start nginx
-          sudo systemctl start php8.2-fpm.service
+          sudo systemctl restart nginx
+          sudo systemctl restart php8.2-fpm.service
 
       - name: Move configuration file
         run: |
@@ -54,7 +55,8 @@ jobs:
           # sudo rm -f /etc/nginx/sites/available/default
 
       - name: Restart Nginx
-        run: sudo systemctl restart nginx
+        run: |
+            sudo systemctl restart nginx
         
         
 
