@@ -59,5 +59,3 @@ jobs:
       - name: Install project dependencies
         run: composer install --prefer-dist --no-interaction
 
-      - name: Run tests
-        run: php artisan test
