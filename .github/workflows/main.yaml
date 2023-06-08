@@ -1,9 +1,10 @@
 name: Build and Test Akaunting
 
 on:
-  push:
-    branches:
-      - master
+  #push:
+   # branches:
+    #  - master//
+  workflow_dispatch:
 
 jobs:
   build-and-test:
