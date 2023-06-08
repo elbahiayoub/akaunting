@@ -45,7 +45,7 @@ jobs:
         run: |
           sudo cp akaunting.conf /etc/nginx/conf.d/
           sudo nginx -t
-          sudo cat /etc/nginx/conf.d/
+          sudo cat /etc/nginx/conf.d/akaunting.conf
 
       - name: Configure Nginx
         run: |
