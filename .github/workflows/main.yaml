@@ -46,6 +46,13 @@ jobs:
 
       - name: Restart Nginx
         run: sudo systemctl restart nginx
+        
+      - name: Move configuration file
+        run: |
+          sudo cp akaunting.conf /etc/nginx/conf.d/
+          sudo nginx -t
+        
+
 
       # Add the following steps for running tests
 
@@ -58,4 +65,14 @@ jobs:
 
       - name: Install project dependencies
         run: composer install --prefer-dist --no-interaction
+        
+      - name: Test website
+        run: |
+          RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost)
+          if [[ "$RESPONSE_CODE" == "200" ]]; then
+            echo "Website is working."
+          else
+            echo "Website is not working. Response code: $RESPONSE_CODE"
+            exit 1
+          fi
 
