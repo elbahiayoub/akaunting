@@ -13,7 +13,7 @@ jobs:
       - name: Check /var/www/ directory
         run: |
           pwd
-          cd /var/www/pwd
+          cd /var/www/
           pwd
           ls -la /var/www/
       
