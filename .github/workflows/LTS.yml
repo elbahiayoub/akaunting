@@ -82,7 +82,7 @@ jobs:
 
       - name: Test site
         run: |
-          status_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost)
+          status_code=$(curl -s -o /dev/null -w "%{http_code}" -L http://localhost)
           if [[ "$status_code" == "200" ]]; then
             echo "Site is working correctly"
             curl -s http://localhost
